@@ -140,10 +140,10 @@ quantum_data = {
 print("\n" + "="*70)
 print(" KEY POINTS FOR FAIR COMPARISON")
 print("="*70)
-print(f"✓ Classical SVM trained on: {len(X_train_scaled):,} samples")
-print(f"✓ Quantum SVM trained on:   {len(X_train_q):,} samples (memory constraint)")
-print(f"✓ Both tested on:           {len(X_test_q):,} samples (IDENTICAL test set)")
-print(f"✓ This allows fair accuracy comparison despite different training sizes")
+print(f" Classical SVM trained on: {len(X_train_scaled):,} samples")
+print(f" Quantum SVM trained on:   {len(X_train_q):,} samples (memory constraint)")
+print(f" Both tested on:           {len(X_test_q):,} samples (IDENTICAL test set)")
+print(f" This allows fair accuracy comparison despite different training sizes")
 
 print("\n Quantum dataset preparation complete!")
 print("="*70)
@@ -172,10 +172,10 @@ gc.collect()
 print("\n FIXED STRATEGY - BOTH STAGES USE SAME SAMPLES")
 print("="*70)
 print("Changes:")
-print("  ✓ Fixed random seeds for reproducibility")
-print("  ✓ Stage 1 & Stage 2 use SAME training samples")
-print("  ✓ Consistent data split every run")
-print("  ✓ Same test set every time")
+print("   Fixed random seeds for reproducibility")
+print("   Stage 1 & Stage 2 use SAME training samples")
+print("   Consistent data split every run")
+print("   Same test set every time")
 print()
 print("STAGE 1: Binary (Normal vs Attack)")
 print("  Training: 200 samples")
@@ -291,9 +291,9 @@ print(f"\n Test set: {len(X_test)} samples")
 mem = psutil.virtual_memory()
 print(f"\n RAM Check:")
 print(f"   Available: {mem.available / (1024**3):.2f} GB")
-print(f"   Stage 1 kernel: 200×200 = ~3 GB ✓")
-print(f"   Stage 1 test:   120×200 = ~2 GB ✓")
-print(f"   Stage 2 kernel: 100×100 = ~1 GB ✓")
+print(f"   Stage 1 kernel: 200×200 = ~3 GB ")
+print(f"   Stage 1 test:   120×200 = ~2 GB ")
+print(f"   Stage 2 kernel: 100×100 = ~1 GB ")
 print(f"   Peak usage: ~3 GB (SAFE!)")
 
 # ==========================================
@@ -325,7 +325,7 @@ start_time = time.time()
 K_train_stage1 = quantum_kernel_stage1.evaluate(X_train_stage1)
 kernel_time_stage1 = time.time() - start_time
 
-print(f"\n   ✓ Stage 1 kernel complete: {kernel_time_stage1:.1f}s ({kernel_time_stage1/60:.1f} min)")
+print(f"\n    Stage 1 kernel complete: {kernel_time_stage1:.1f}s ({kernel_time_stage1/60:.1f} min)")
 
 # Hyperparameter tuning
 skf = StratifiedKFold(n_splits=3, shuffle=True, random_state=FIXED_SEED)
@@ -407,7 +407,7 @@ start_time = time.time()
 K_train_stage2 = quantum_kernel_stage2.evaluate(X_train_stage2)
 kernel_time_stage2 = time.time() - start_time
 
-print(f"\n   ✓ Stage 2 kernel complete: {kernel_time_stage2:.1f}s ({kernel_time_stage2/60:.1f} min)")
+print(f"\n    Stage 2 kernel complete: {kernel_time_stage2:.1f}s ({kernel_time_stage2/60:.1f} min)")
 
 # Hyperparameter tuning for Stage 2
 skf2 = StratifiedKFold(n_splits=3, shuffle=True, random_state=FIXED_SEED)
@@ -461,7 +461,7 @@ K_test_stage1 = quantum_kernel_stage1.evaluate(X_test, X_train_stage1)
 y_test_pred_binary = qsvm_stage1.predict(K_test_stage1)
 
 time_stage1_test = time.time() - start_test
-print(f"   ✓ Stage 1 test complete: {time_stage1_test:.1f}s ({time_stage1_test/60:.1f} min)")
+print(f"    Stage 1 test complete: {time_stage1_test:.1f}s ({time_stage1_test/60:.1f} min)")
 
 # Find samples predicted as Attack
 attack_predicted_mask = y_test_pred_binary == 1
@@ -480,7 +480,7 @@ if n_attacks_predicted > 0:
     y_test_pred_attack_types = qsvm_stage2.predict(K_test_stage2)
     time_stage2_test = time.time() - start_time
 
-    print(f"   ✓ Stage 2 test complete: {time_stage2_test:.1f}s ({time_stage2_test/60:.1f} min)")
+    print(f"    Stage 2 test complete: {time_stage2_test:.1f}s ({time_stage2_test/60:.1f} min)")
 
     del K_test_stage2
     gc.collect()
@@ -580,7 +580,7 @@ fuzzy_detected = cm_4x4[2, 1] + cm_4x4[2, 2] + cm_4x4[2, 3]
 fuzzy_total = cm_4x4[2, :].sum()
 fuzzy_detection_rate = fuzzy_detected / fuzzy_total if fuzzy_total > 0 else 0
 
-print(f"\n ⭐ Fuzzy Attack Detection:")
+print(f"\n  Fuzzy Attack Detection:")
 print(f"   Detected as Attack: {fuzzy_detected}/{fuzzy_total} ({fuzzy_detection_rate*100:.1f}%)")
 print(f"   Misclassified as Normal: {cm_4x4[2,0]}/{fuzzy_total} ({cm_4x4[2,0]/fuzzy_total*100:.1f}%)")
 
@@ -653,19 +653,19 @@ quantum_results = {
 print("\n" + "="*70)
 print(" SUMMARY")
 print("="*70)
-print(f"✓ FIXED: Both stages use SAME samples")
-print(f"✓ Stage 1: 200 training samples (100 Normal + 100 Attacks)")
-print(f"✓ Stage 2: 100 training samples (SAME 100 attacks)")
-print(f"✓ Test set: 120 samples (30 each type)")
-print(f"\n✓ Binary Accuracy: {test_acc_binary*100:.2f}%")
-print(f"✓ Multi-Class Accuracy: {test_acc_multiclass*100:.2f}%")
-print(f"✓ Fuzzy Detection Rate: {fuzzy_detection_rate*100:.1f}%")
-print(f"\n✓ Training time:")
+print(f" FIXED: Both stages use SAME samples")
+print(f" Stage 1: 200 training samples (100 Normal + 100 Attacks)")
+print(f" Stage 2: 100 training samples (SAME 100 attacks)")
+print(f" Test set: 120 samples (30 each type)")
+print(f"\n Binary Accuracy: {test_acc_binary*100:.2f}%")
+print(f" Multi-Class Accuracy: {test_acc_multiclass*100:.2f}%")
+print(f" Fuzzy Detection Rate: {fuzzy_detection_rate*100:.1f}%")
+print(f"\n Training time:")
 print(f"  • Stage 1: {kernel_time_stage1/60:.1f} min")
 print(f"  • Stage 2: {kernel_time_stage2/60:.1f} min")
 print(f"  • Total: {(kernel_time_stage1 + kernel_time_stage2)/60:.1f} min")
-print(f"\n✓ Test time: {total_test_time/60:.1f} min")
-print(f"\n✓ Consistent results guaranteed!")
+print(f"\n Test time: {total_test_time/60:.1f} min")
+print(f"\n Consistent results guaranteed!")
 print(f"  • Fixed random seeds throughout")
 print(f"  • Same training/test split every run")
 print(f"  • Both stages see identical samples")
